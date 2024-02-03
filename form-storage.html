@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form history</title>
+</head>
+<body>
+    <form>
+        <h1></h1>
+        <input type="text" placeholder="enter phone number">
+        <br>
+        <input type="text" placeholder="enter from phone number">
+        <br>
+        <textarea placeholder="enter sms text"></textarea>
+        <br>
+        <button id="sendBtn">send</button>
+    </form>  
+    <script>
+        window.onload = function() {
+            load();
+            loadData();
+        }
+        function load() {
+            let btn = document.getElementById("sendBtn");
+            btn.addEventListener("click", saveData);
+        }
+        function saveData() {
+            let i1 = document.forms[0].children[1];
+            let i2 = document.forms[0].children[3];
+            let i3 = document.forms[0].children[5];
+
+            let data = {
+                phoneTo: i1.value,
+                phoneFrom: i2.value,
+                textSMS: i3.value
+            };
+            localStorage.setItem(
+                "data",
+                JSON.stringify(data)
+            );
+        }
+        function loadData() {
+            let data = JSON.parse(
+                localStorage.getItem("data")
+            );
+            if (data != null) {
+                let i1 = document.forms[0].children[1];
+                let i2 = document.forms[0].children[3];
+                let i3 = document.forms[0].children[5];
+
+                i1.value = data.phoneTo;
+                i2.value = data.phoneFrom;
+                i3.value = data.textSMS;
+            }
+            console.log(data);
+        }
+    </script>
+</body>
+</html>

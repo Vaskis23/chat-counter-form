@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat Window</title>
+    <style>
+        #chat {
+            background-color: #333;
+            padding: 10px 10px 10px 10px;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+        #chat:not(.open) {
+            bottom: -200px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="chat">
+        <button class="toggler">x</button>
+        <form>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <br>
+            <button>SEND</button>
+        </form>
+    </div>
+    <script>
+        window.onload = function () {
+            document
+            .getElementById('chat')
+            .addEventListener('click', toggleChat)
+        }
+
+        function toggleChat(e) {
+            if (e.target.className == "toggler") {
+                let button = e.target;
+                let chat = button.parentElement;
+
+                chat.classList.toggle('open');
+
+                // Toggle text between "ˆ" and "x"
+                button.textContent = (button.textContent === 'ˆ') ? 'x' : 'ˆ';
+
+                saveChatState(chat.classList.item(0));
+            }
+        }
+
+        //HW restoreChatState()
+        function saveChatState(state) {
+            localStorage.setItem("chat_state", state);
+        }
+    </script>
+</body>
+</html>
